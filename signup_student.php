@@ -9,7 +9,7 @@
     $password = $_POST["password"]; 
     $password_conf = $_POST["password_conf"];
     $email = $_POST["email"];
-    $phone = $_POST["phone_no"];
+    $phone_no = $_POST["phone_no"];
 
     $encrypted_pass = md5($password);
             
@@ -25,7 +25,7 @@
 
             $sql = "INSERT INTO `student` ( `student_id`, 
                 `password`, email, phone_no) VALUES ('$id', 
-                '$encrypted_pass','email', 'phone_no')";
+                '$encrypted_pass','$email', '$phone_no')";
     
             $result = mysqli_query($conn, $sql);
            
