@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2023 at 07:22 PM
+-- Generation Time: Mar 31, 2023 at 07:49 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -135,7 +135,9 @@ CREATE TABLE `orders` (
   `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `order_status` int(11) NOT NULL DEFAULT 0 COMMENT '0=pending | 1=confirm',
   `resturant_name` varchar(255) NOT NULL,
-  `user_type` varchar(255) NOT NULL
+  `user_type` varchar(255) NOT NULL,
+  `payment_method` varchar(255) NOT NULL,
+  `receiving_method` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
