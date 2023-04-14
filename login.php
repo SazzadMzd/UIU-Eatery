@@ -27,7 +27,7 @@
                                    
                                     if($_GET['login_msg'] == 'failed') {
                                         echo '<div class="alert alert-danger" role="alert">
-                                                Invalid username or password!
+                                                Invalid email or password!
                                             </div>';
                                     }
                                   //  else if($_GET['login_msg'] == 'success') {
@@ -39,7 +39,7 @@
                             ?>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Enter username" id="username" name="username" required>
+                                <input type="email" class="form-control" placeholder="Enter email" id="email" name="email" required>
                             </div>
                             
                             <div class="form-group">
@@ -54,6 +54,10 @@
                                 <button type="submit" name="user_login" class="btn btn-md btn-primary">Login</button>
                             </div>
 
+                            
+                            <div class="d-flex justify-content-center">
+                                <p>Want to create a Restaurant? <a href="register.php">Register</a></p>
+                            </div>
                     </form>       
                     
                     
@@ -63,18 +67,27 @@
 
                         if(isset($_POST['user_login'])){
                             // Get form data
-                            $username = $_POST['username'];
+                            $email = $_POST['email'];
                             $password = md5($_POST['password']);
 
                             // Check if user exists
-                            $conn = new mysqli('localhost', 'root','', 'eatery');
-                            $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
-                            $result = mysqli_query($conn, $sql);
+                            $sql = "SELECT * FROM owner WHERE status = 'accepted' AND email = '$email' AND password = '$password'";
+                            $result = mysqli_query($db, $sql);
                             $count = mysqli_num_rows($result);
+                            $user_info = mysqli_fetch_assoc($result);
+
 
                             if($count == 1) {
                                 // User exists
-                                header('location: panel.php?login_msg=success');
+
+                             $sql = "SELECT * FROM owner WHERE status = 'accepted' AND email = '$email' AND password = '$password'";
+
+
+                                session_start();
+                                $_SESSION['email'] = $email;
+                                $_SESSION['restaurant_id'] = $user_info['restaurant_id'];
+                                
+                                header('location: index.php');
                             } else {
                                 // User does not exist
                                 header('location: login.php?login_msg=failed');
