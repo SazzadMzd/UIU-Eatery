@@ -1,3 +1,8 @@
+<?php 
+    require_once '../../db.php';
+     $id = $_GET['id'];
+     $user_type = $_GET['user'];
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -51,42 +56,17 @@
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
 		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(uiulogo.png);"></a>
-	        <ul class="list-unstyled components mb-5">
+          <h4 style="margin-left: 50px; font-family: 'Poppins', sans-serif; color:orange;">ID : <?php echo $id;?></h4><br>
+          <h4 style="margin-left: 45px; font-family: 'Poppins', sans-serif; color:orange;">User : <?php echo $user_type;?></h4>
 
-	          <!-- <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-	            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a href="#">Home 1</a>
-                </li>
-                <li>
-                    <a href="#">Home 2</a>
-                </li>
-                <li>
-                    <a href="#">Home 3</a>
-                </li>
-	            </ul>
-	          </li> -->
+	        <ul class="list-unstyled components mb-5">
 	          <li>
 	              <a href="#">Home</a>
 	          </li>
             <li>
-	              <a href="#">Order History</a>
+	              <a href="order_history.php?id=<?php echo $id;?>&user=<?php echo $user_type;?>">Order History</a>
 	          </li>
-	          <!-- <li>
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-              <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li>
-              </ul>
-	          </li> -->
+	         
 	          <li>
               <a href="complaint.php">Complaint</a>
 	          </li>
@@ -106,13 +86,13 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
 
-            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary">
               <i class="fa fa-bars"></i>
               <span class="sr-only">Toggle Menu</span>
             </button>
             <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
-            </button>
+            </button> -->
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
@@ -121,16 +101,61 @@
                 </li> -->
                 <li class="nav-item">
                 <form action="search.php" method="POST">
-                    <input style=" padding:6px; margin-top: 8px; margin-right: 16px; font-size: 17px; " type="text" name="khoj"  placeholder="Search for Restaurants">
+                    <input style=" border-color:orange; border-radius:10px; padding:6px; margin-top: 8px; margin-right: 16px; font-size: 17px; " type="text" name="khoj"  placeholder="Search Restaurants">
                     <!-- <input type="submit" value="Search" /> -->
                     </form>
                 </li>
-              
-                <li class="nav-item">
-                <button class="notifications-btn">
-      <img src="https://www.svgrepo.com/show/133673/notification-bell.svg" alt="" class="notifications-icon">
-    </button>
-                </li>
+
+
+
+
+                <?php 
+                    session_start();
+
+                    // $user_id = $_SESSION['id'];
+                    // $query = "select * from orders where customer_id = '$user_id' and read_status = 0";
+                    // $result = mysqli_query($conn, $query);
+
+
+                    $user_id = $_SESSION['id'];
+                    $query = "SELECT COUNT(*) as count FROM orders WHERE customer_id = '$user_id' and order_status = 1 and read_status = 0";
+                    $result = mysqli_query($conn, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    $count = $row['count'];
+                    $user = $id;
+
+
+                    $query = "UPDATE `orders` SET `read_status` = '1' WHERE `orders`.`customer_id` = '$user';";
+                    mysqli_query($conn, $query);
+
+
+
+                    if($count > 0) {
+                  ?>
+
+                    <li class="nav-item">
+                        <button id="notificationButton" type="button" class="btn" data-toggle="modal" data-target="#latestOrderModal" >
+                          <img src="notification-on.svg" alt="" class="notifications-icon">
+                        </button>
+                    </li>
+
+                  <?php 
+                     
+                    }
+
+                    else {
+                  ?>
+
+                       <li class="nav-item">
+                         <img src="notification-off.svg" alt="" class="notifications-icon">
+                        </li>
+                        
+                  <?php
+                    }
+
+
+                ?>
+                
                 
                 <li class="nav-item">
                     <button class="profile-btn">
@@ -156,7 +181,7 @@
 
     
 		<?php
-      require_once '../../db.php';
+     
             $conn = new mysqli('localhost', 'root', '', 'eatery');
            
             $sql = "SELECT * FROM restaurant";
@@ -164,6 +189,27 @@
             ?> 
 		
     <!-- Code by Shifa Begins  -->
+
+
+    <section>
+      <!-- Modal -->
+      <div class="modal fade" id="latestOrderModal" tabindex="-1" role="dialog" aria-labelledby="latestOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="latestOrderModalLabel">Latest Order Details</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Your Order is Ready</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
     <section id="popular-items" class="popular-items">
       <div class="container">
@@ -364,11 +410,57 @@
 									<div class="single-new-arrival-bg-overlay"></div>
 								
 								</div>
-								<h4 style="font-family: 'Poppins', sans-serif;"><a href="menu.php?res_id=<?php echo $row['restaurant_id'] ?>"><?php echo $row['restaurant_name'] ?></a></h4>
+								<h4 style="font-family: 'Poppins', sans-serif;"><a href="menu.php?res_id=<?php echo $row['restaurant_id'] ?>&id=<?php echo $id ?>&user=<?php echo $user_type ?>"><?php echo $row['restaurant_name'] ?></a></h4>
+                <h4 style="font-family: 'Poppins', sans-serif; color:green;" id="myHeading"> Free</h4>
 
+                <?php
+                $rn = $row['restaurant_name'];
+                    require_once '../../db.php';
+                    $conn = new mysqli('localhost', 'root', '', 'eatery');
+                  
+                    $sql = "SELECT restaurant_name, COUNT(*) as num_orders
+                    FROM orders
+                    WHERE order_status = 0 AND restaurant_name='$rn'
+                    GROUP BY restaurant_name;";
+                    $result5 = $conn->query($sql);
+                    if($result5){
+                      while($row5 = $result5->fetch_assoc()) {
+                        if($row5['num_orders']<10){
 
-		
+                          ?>
+                            <!-- <h4 style="font-family: 'Poppins', sans-serif; color:green;"> Free</h4> -->
+                            <script>
+                            document.getElementById("myHeading").innerHTML = "Free";
+                            </script>
+                          <?php
 
+                        }
+                        elseif(10 <= $row5['num_orders']  && $row5['num_orders']< 20){
+
+                      ?>
+                             <script>
+                            document.getElementById("myHeading").innerHTML = "Moderate";                        
+                            var heading = document.getElementById("myHeading");
+                            heading.style.color = "orange";
+                            </script>
+                    <?php
+                        }
+                        else{
+                        ?>
+                          <script>
+                            document.getElementById("myHeading").innerHTML = "Busy";                        
+                            var heading = document.getElementById("myHeading");
+                            heading.style.color = "red";
+                            </script>
+                        <?php
+                        }
+                       ?> 
+                 
+
+		<?php }}
+           
+    ?>
+           
 								
 							</div>
 							</div>
@@ -430,5 +522,15 @@
         
         <!--Custom JS-->
         <script src="assets/js/custom.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#latestOrderModal').on('hidden.bs.modal', function() {
+            location.reload();
+        });
+    });
+</script>
+
+
   </body>
 </html>
