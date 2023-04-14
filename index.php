@@ -1,136 +1,130 @@
-<?php 
-
-    session_start();
-    if(!isset($_SESSION['email'])){
-        header('location: login.php?session=empty');
-    }
-     
-?>
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-  	<title>Restaurant Owner</title>
+
+<head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <!-- For favicon png -->
-		<link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png"/>
-       
-        <!--font-awesome.min.css-->
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-        <!--linear icon css-->
-		<link rel="stylesheet" href="assets/css/linearicons.css">
-
-		<!--animate.css-->
-        <link rel="stylesheet" href="assets/css/animate.css">
-
-        <!--owl.carousel.css-->
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-		
-        <!--bootstrap.min.css-->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		
-		<!-- bootsnav -->
-		<link rel="stylesheet" href="assets/css/bootsnav.css" >	
-        
-        <!--style.css-->
-        <link rel="stylesheet" href="assets/css/style.css">
-        
-        <!--responsive.css-->
-        <link rel="stylesheet" href="assets/css/responsive.css">
-
-
-        
-        <link rel="stylesheet" href="localcss.css">
-
-  </head>
-  <body>
-		
-		<div class="wrapper d-flex align-items-stretch">
-			<nav id="sidebar">
-				<div class="p-4 pt-5">
-		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(uiulogo.png);"></a>
-                <ul class="list-unstyled components mb-5">
-
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="orders.php">Orders</a>
-                    </li>
-                    <li>
-                        <a href="add_update.php">Add/Update/Remove
-                            
-                        </a>
-                    </li>
-                </ul>
-
-	     
-
-	      </div>
-    	</nav>
-
-        <!-- Page Content  -->
-    <div id="content" class="p-4 p-md-5">
-        <div class="container">
-            
-        </div>
-        
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     
-										
-						
-						
-							
-						
-						
-	</div>
-		
-		
-		
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- Top navigation -->
+<div class="topnav">
+
+  <!-- Centered link -->
+  <div class="topnav-centered">
+    <!-- <a href="#home" class="active">UIU Eatery</a> -->
+    <a> <img src="img.png" alt="Food" width="60" height="60"></a>
+  </div>
+
+  <!-- Left-aligned links (default) -->
+  <a href="#news">Home</a>
+  <a href="../UIUEatery/student_portal.html">Student</a>
+  <a href="../UIUEatery/faculty_portal.html">Faculty</a>
+  <a href="../restaurant_owner/login.php">Owner</a>
+
+  <!-- Right-aligned links -->
+  <div class="topnav-right">
+    <a href="#search"></a>
+    <a href="#about"></a>
+  </div>
+
+</div>
+
+<div class="flex-container">
+
+    <div>
+    <pre  style="color:orange; font-family: sans-serif;"><i>  WELCOME</i></pre>
+    <pre  style="color:orange;  font-size: 25px; font-family: sans-serif;"><i>          to</i></pre>
+    <pre style="color:orange; font-family: sans-serif;"><i>UIU EATERY</i></pre>
+
+    <pre  style="color:#141d2a; font-size: 20px; font-family: sans-serif;">If you are Hungry,</pre>
+    <pre style="color:#141d2a;  font-size: 20px; font-family: sans-serif;">Don't be Angry,</pre>
+    <pre style="color:#141d2a;  font-size: 20px; font-family: sans-serif;">Just visit Eatery.</pre>
+    </div>
+
+    <div>
+    <img src="main.png" alt="Food" width="400" height="400">
+    </div>
+
+</div>
 
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
+<footer class="footer-20192">
+      <div class="site-section">
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-sm">
+              <a href="#" class="footer-logo">UIU Eatery</a>
+              <p class="copyright">
+                <small>&copy; 2023</small>
+              </p>
+            </div>
+            <div class="col-sm">
+              <h3>Customers</h3>
+              <ul class="list-unstyled links">
+                <li><a href="#">Buyer</a></li>
+                <li><a href="#">Supplier</a></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <h3>Company</h3>
+              <ul class="list-unstyled links">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact us</a></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <h3>Further Information</h3>
+              <ul class="list-unstyled links">
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h3>Follow us</h3>
+              <ul class="list-unstyled social">
+                <li><a href="#"><span class="icon-facebook"></span></a></li>
+                <li><a href="#"><span class="icon-twitter"></span></a></li>
+                <li><a href="#"><span class="icon-linkedin"></span></a></li>
+                <li><a href="#"><span class="icon-medium"></span></a></li>
+                <li><a href="#"><span class="icon-paper-plane"></span></a></li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    
+    
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
 
 
 
-
-
-    <!-- Include all js compiled plugins (below), or include individual files as needed -->
-
-		<script src="assets/js/jquery.js"></script>
-        
-        <!--modernizr.min.js-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-		
-		<!--bootstrap.min.js-->
-        <script src="assets/js/bootstrap.min.js"></script>
-		
-		<!-- bootsnav js -->
-		<script src="assets/js/bootsnav.js"></script>
-
-		<!--owl.carousel.js-->
-        <script src="assets/js/owl.carousel.min.js"></script>
-
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-		
-        
-        <!--Custom JS-->
-        <script src="assets/js/custom.js"></script>
-  </body>
+</body>
 </html>
